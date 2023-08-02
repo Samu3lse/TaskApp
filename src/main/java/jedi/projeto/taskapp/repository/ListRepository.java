@@ -1,4 +1,8 @@
 package jedi.projeto.taskapp.repository;
 
-public class ListRepository {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ListRepository {
+
 }
