@@ -1,5 +1,8 @@
 package jedi.projeto.taskapp.service;
 
+import jedi.projeto.taskapp.exception.RecursoNaoAtualizado;
+import jedi.projeto.taskapp.exception.RecursoNaoEcontradoException;
+import jedi.projeto.taskapp.exception.RecursoNaoSalvoException;
 import jedi.projeto.taskapp.model.entity.Task;
 import jedi.projeto.taskapp.repository.ListRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +29,7 @@ public class ListService {
             return result.get();
         }
         else {
-            throw new RuntimeException("");
+            throw new RecursoNaoEcontradoException();
         }
     }
 
@@ -35,7 +38,7 @@ public class ListService {
         Optional<Task> taskFromDataBase = listRepository.getTaskByTitulo(task.getTask());
 
         if(taskFromDataBase.isPresent()){
-            throw new RuntimeException("");
+            throw new RecursoNaoSalvoException();
         }else {
             Task result = listRepository.save(task);
             return result;
@@ -48,7 +51,7 @@ public class ListService {
     Optional<Task> taskFromDataBase = listRepository.getTaskByTitulo(task.getTask());
 
     if(taskFromDataBase.isPresent() && taskFromDataBase.get().getId() != task.getId()){
-        throw new RuntimeException("");
+        throw new RecursoNaoAtualizado();
     }Task result= listRepository.save(task);
     return result;
     }
