@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ListRepository extends JpaRepository<Task,Long> {
 
-    Optional<Task> getTaskByTitulo (String Titulo);
+    Optional<Task> getTaskByTitulo (String titulo);
 
 }
