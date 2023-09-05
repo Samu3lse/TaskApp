@@ -1,8 +1,7 @@
 package jedi.projeto.taskapp.service;
 
-import jedi.projeto.taskapp.exception.RecursoNaoAtualizado;
-import jedi.projeto.taskapp.exception.RecursoNaoEcontradoException;
-import jedi.projeto.taskapp.exception.RecursoNaoSalvoException;
+import jedi.projeto.taskapp.enumeration.DiaSemanaEnum;
+import jedi.projeto.taskapp.exception.RecursoNaoEncontradoException;
 import jedi.projeto.taskapp.model.entity.Task;
 import jedi.projeto.taskapp.repository.ListRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class ListService {
             return result.get();
         }
         else {
-            throw new RecursoNaoEcontradoException();
+            throw new RecursoNaoEncontradoException("Recurso não encontrado");
         }
     }
 
@@ -37,8 +36,14 @@ public class ListService {
 
         Optional<Task> taskFromDataBase = listRepository.getTaskByTitulo(task.getTask());
 
+        DiaSemanaEnum diaSemana = DiaSemanaEnum.getByNome(task.getDiaSemana());
+        if (diaSemana == null){
+            throw new RecursoNaoEncontradoException("Dia não Encontrado");
+        }
+
+
         if(taskFromDataBase.isPresent()){
-            throw new RecursoNaoSalvoException();
+            throw new RecursoNaoEncontradoException();
         }else {
             Task result = listRepository.save(task);
             return result;
@@ -51,7 +56,7 @@ public class ListService {
     Optional<Task> taskFromDataBase = listRepository.getTaskByTitulo(task.getTask());
 
     if(taskFromDataBase.isPresent() && taskFromDataBase.get().getId() != task.getId()){
-        throw new RecursoNaoAtualizado();
+        throw new RecursoNaoEncontradoException();
     }Task result= listRepository.save(task);
     return result;
     }

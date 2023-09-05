@@ -19,4 +19,6 @@ public class Task {
     private Long id;
 
     private String task;
+
+    private String diaSemana;
 }
