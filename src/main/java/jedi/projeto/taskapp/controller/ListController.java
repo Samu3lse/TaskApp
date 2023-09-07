@@ -4,7 +4,6 @@ package jedi.projeto.taskapp.controller;
 import jedi.projeto.taskapp.model.entity.Task;
 import jedi.projeto.taskapp.service.ListService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
